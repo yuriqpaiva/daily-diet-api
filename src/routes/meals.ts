@@ -17,7 +17,12 @@ export async function mealsRoutes(app: FastifyInstance) {
         .where({ session_id: sessionId })
         .select();
 
-      return { meals };
+      return {
+        meals: meals.map((meal) => ({
+          ...meal,
+          is_diet: Boolean(meal.is_diet),
+        })),
+      };
     }
   );
 
@@ -38,7 +43,12 @@ export async function mealsRoutes(app: FastifyInstance) {
       return reply.status(404).send();
     }
 
-    return { meal };
+    return {
+      meal: {
+        ...meal,
+        is_diet: Boolean(meal.is_diet),
+      },
+    };
   });
 
   app.post('/', async (request, reply) => {

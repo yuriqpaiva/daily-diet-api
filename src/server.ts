@@ -1,10 +1,4 @@
-import fastify from 'fastify';
-import { mealsRoutes } from './routes/meals';
-import fastifyCookie from '@fastify/cookie';
-
-const app = fastify();
-app.register(fastifyCookie);
-app.register(mealsRoutes, { prefix: '/meals' });
+import { app } from './app';
 
 try {
   await app.listen({ port: 3333 });
